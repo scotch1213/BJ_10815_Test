@@ -58,6 +58,7 @@ void merge_sort(int* input_arr, int* sorted_arr, int left, int right) {
 
 void bin_search(int* p_dst_int, int* src_in_arr, int left, int right) {
 	int i, j;
+	int find_status = 0;
 	int mid;
 	i = left;
 	j = right;
@@ -73,8 +74,13 @@ void bin_search(int* p_dst_int, int* src_in_arr, int left, int right) {
 		}
 		else {
 			p_dst_int[0] = 1;
+			find_status = 1;
 			break;
 		}
+	}
+
+	if (find_status != 1) {
+		p_dst_int[0] = 0;
 	}
 
 }
@@ -90,11 +96,6 @@ int main()
 	for (int i = 0; i < src_test_no; i++) { 
 		scanf("%d", &p_src_arr[i]);
 	}
-
-	//for (int i = 0; i < src_test_no; i++) {
-	//	printf("%d ", p_src_arr[i]);
-	//}
-	//printf("\n");
 	
 	scanf("%d", &dst_test_no);
 	int* p_dst_arr = (int*)malloc(sizeof(int) * dst_test_no);
@@ -105,20 +106,12 @@ int main()
 	//sort src
 	merge_sort(p_src_arr, p_sort_arr, 0, src_test_no - 1);
 
-	//for (int i = 0; i < src_test_no; i++) {
-	//	printf("%d ", src_arr[i]);
-	//}
-	//printf("\n");
-
 	//compare dst
 	for (int i = 0; i < dst_test_no; i++) {
 		bin_search(&p_dst_arr[i], p_src_arr, 0, src_test_no - 1);
 	}
 	
 	for (int i = 0; i < dst_test_no; i++) {
-		if (p_dst_arr[i] != 1) {
-			p_dst_arr[i] = 0;
-		}
 		printf("%d ", p_dst_arr[i]);
 	}
 
